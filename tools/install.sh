@@ -32,7 +32,7 @@ sed -i -e "/export PATH=/ c\\
 export PATH=\"$PATH\"
 " ~/.zshrc
 
-if [ "$SHELL" != "$(which zsh)" ]; then
+if [ "$SHELL" != "$(which zsh)" -a "$(which zsh 2>/dev/null)" -a "$(which chsh 2>/dev/null)" ]; then
     echo "\033[0;34mTime to change your default shell to zsh!\033[0m"
     chsh -s `which zsh`
 fi
@@ -46,5 +46,9 @@ echo "\033[0;32m"'                        /____/                       ....is no
 echo "\n\n \033[0;32mPlease look over the ~/.zshrc file to select plugins, themes, and options.\033[0m"
 echo "\n\n \033[0;32mp.s. Follow us at http://twitter.com/ohmyzsh.\033[0m"
 echo "\n\n \033[0;32mp.p.s. Get stickers and t-shirts at http://shop.planetargon.com.\033[0m"
-env zsh
-. ~/.zshrc
+if [ "$(which zsh 2>/dev/null)" ]; then
+    env zsh
+    . ~/.zshrc
+else
+    echo "\nLast step: Don't forget to install zsh itself..."
+fi
