@@ -14,8 +14,8 @@ local ret_status="%B%(?:%F{118}➜:%F{196}➜) %b%f"
 ZSH_THEME_GIT_PROMPT_PREFIX=" %F{247}(%B%K{131}%F{7}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%f"
 ZSH_THEME_GIT_PROMPT_DIRTY="%k%b%F{247}) %B%F{220}✗%f%b"
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%k%b%F{212}) %B%F{220?%f%b"
-ZSH_THEME_GIT_PROMPT_CLEAN="%k%b%F{50})"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%k%b%F{247}) %B%F{208}?%f%b"
+ZSH_THEME_GIT_PROMPT_CLEAN="%k%b%F{247}) %B%F{118}✓%f%b"
 
 PROMPT='${ret_status}'                  # show last result
 PROMPT+='%F{252}%5(c:%-2~/…/%2~:%~)%f'  # show 5 levels, first two, dots, last two
