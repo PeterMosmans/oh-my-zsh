@@ -68,10 +68,12 @@ alias gc!='git commit -v --amend'
 alias gca='git commit -v -a'
 alias gca!='git commit -v -a --amend'
 alias gcan!='git commit -v -a -s --no-edit --amend'
+alias gcam='git commit -a -m'
 alias gcb='git checkout -b'
 alias gcf='git config --list'
 alias gcl='git clone --recursive'
-alias gclean='git reset --hard && git clean -dfx'
+alias gclean='git clean -fd'
+alias gpristine='git reset --hard && git clean -dfx'
 alias gcm='git checkout master'
 alias gcmsg='git commit -m'
 alias gco='git checkout'
@@ -82,6 +84,7 @@ alias gcs='git commit -S'
 
 alias gd='git diff'
 alias gdca='git diff --cached'
+alias gdct='git describe --tags `git rev-list --tags --max-count=1`'
 alias gdt='git diff-tree --no-commit-id --name-only -r'
 gdv() { git diff -w "$@" | view - }
 compdef _git gdv=git-diff
@@ -101,11 +104,15 @@ git push --force origin "${b:=$1}"
 }
 compdef _git ggf=git-checkout
 ggl() {
+if [[ "$#" != 0 ]] && [[ "$#" != 1 ]]; then
+git pull origin "${*}"
+else
 [[ "$#" == 0 ]] && local b="$(current_branch)"
-git pull origin "${b:=$1}" "${*[2,-1]}"
+git pull origin "${b:=$1}"
+fi
 }
 compdef _git ggl=git-checkout
-alias ggpull='ggl'
+alias ggpull='git pull origin $(current_branch)'
 compdef _git ggpull=git-checkout
 ggp() {
 if [[ "$#" != 0 ]] && [[ "$#" != 1 ]]; then
@@ -116,7 +123,7 @@ git push origin "${b:=$1}"
 fi
 }
 compdef _git ggp=git-checkout
-alias ggpush='ggp'
+alias ggpush='git push origin $(current_branch)'
 compdef _git ggpush=git-checkout
 ggpnp() {
 if [[ "$#" == 0 ]]; then
@@ -205,11 +212,13 @@ alias gsts='git stash show --text'
 alias gsu='git submodule update'
 
 alias gts='git tag -s'
+alias gtv='git tag | sort -V'
 
 alias gunignore='git update-index --no-assume-unchanged'
 alias gunwip='git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset HEAD~1'
 alias gup='git pull --rebase'
 alias gupv='git pull --rebase -v'
+alias glum='git pull upstream master'
 
 alias gvt='git verify-tag'
 
